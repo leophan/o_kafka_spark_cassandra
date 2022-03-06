@@ -120,3 +120,6 @@ export ENV=dev
 --master spark://localhost:7077 \
 ./o_kafka_spark_cassandra/target/o_kafka_spark_cassandra-1.0-SNAPSHOT.jar
 ```
+
+### Reference
+* https://docs.microsoft.com/vi-vn/azure/cosmos-db/cassandra/spark-read-operation

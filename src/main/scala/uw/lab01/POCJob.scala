@@ -11,6 +11,9 @@ object POCJob {
     val kafkaHost = "localhost"
     val sparkMasterHost = "127.0.0.1"
     val cassandraHost = "127.0.0.1"
+    val cassandraPort = "9042"
+    val cassandraUsername = "cassandra"
+    val cassandraPassword = "cassandra"
     val keyspace = "bank_poc"
     val table_bank_of_american = "bofa"
     val table_bank_of_china = "bofc"
@@ -26,6 +29,9 @@ object POCJob {
 
     val spark = init(SparkSession, "Kafka-Spark-Cassandra-POC", env)
     spark.conf.set("spark.cassandra.connection.host", cassandraHost)
+    spark.conf.set("spark.cassandra.connection.port", cassandraPort)
+    spark.conf.set("spark.cassandra.auth.username", cassandraUsername)
+    spark.conf.set("spark.cassandra.auth.password", cassandraPassword)
     spark.sparkContext.setLogLevel("ERROR")
 
     val event_df = load(spark, kafkaHost)                           // load data from Kafka

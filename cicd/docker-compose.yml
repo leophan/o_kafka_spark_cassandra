@@ -1,0 +1,42 @@
+version: "2"
+
+services:
+  zookeeper:
+    image: docker.io/bitnami/zookeeper:3.7.0
+    ports:
+      - "2181:2181"
+    volumes:
+      - "zookeeper_data:/bitnami"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+  kafka:
+    image: docker.io/bitnami/kafka:3.1.0
+    ports:
+      - "9092:9092"
+    volumes:
+      - "kafka_data:/bitnami"
+    environment:
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    depends_on:
+      - zookeeper
+  cassandra:
+    image: docker.io/bitnami/cassandra:4.0.3
+    ports:
+      - "7000:7000"
+      - "9042:9042"
+    volumes:
+      - "cassandra_data:/bitnami"
+    environment:
+      - CASSANDRA_SEEDS=cassandra
+      - CASSANDRA_PASSWORD_SEEDER=yes
+      - CASSANDRA_PASSWORD=cassandra
+volumes:
+  zookeeper_data:
+    driver: local
+  kafka_data:
+    driver: local
+  cassandra_data:
+    driver: local
