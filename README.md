@@ -26,6 +26,16 @@
 * Spark-3.2.1-bin-hadoop3.2
 * Cassandra 4.0.3
 
+### Setup environment
+```shell
+# Run local mode
+cd cicd
+docker-compose up zookeeper kafka cassandra
+
+# Run standalone mode; It looks like running on production.
+docker-compose up
+```
+
 #### Kafka
 * Create a topic
 ```shell
@@ -62,6 +72,11 @@ Copy all above library files into `jars` folder in `SPARK_HOME` folder
 ```shell
 # example
 cp commons-pool2-2.6.2.jar $SPARK_HOME/jars
+```
+
+* IntelliJ Config
+```shell
+-Dspark.master=spark://localhost:7077 -Dspark.jars=src/main/resources/libs/commons-pool2-2.6.2.jar,src/main/resources/libs/kafka-clients-3.1.0.jar,src/main/resources/libs/kafka_2.12-3.1.0.jar,src/main/resources/libs/spark-sql-kafka-0-10_2.12-3.2.1.jar,src/main/resources/libs/spark-streaming-kafka-0-10_2.12-3.2.1.jar,src/main/resources/libs/spark-token-provider-kafka-0-10_2.12-3.2.1.jar,src/main/resources/libs/spark-cassandra-connector-assembly_2.12-3.1.0.jar
 ```
 
 #### Cassandra
